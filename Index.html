@@ -7,10 +7,19 @@
 </head>
 <body>
 <div class="container">
-    <form class="etsysearch">
-        <label for="keywords">Search:</label>
-        <input name="keywords" id="keywords" />
-        <input type="button" id="btnSearch" value="Search" />
+    <form class="etsysearch" id="searchForm">
+        <fieldset>
+            <input name="keywords" id="search" placeholder="Search..." size="40" />
+            <input type="button" id="btnSearch" value="Search" />
+            <div id="optionsContainer">
+                <input type="checkbox"
+                       name="save"
+                       value="save search"
+                       id="saveSearch"/>
+            </div>
+
+
+        </fieldset>
     </form>
 
     <div id="results">

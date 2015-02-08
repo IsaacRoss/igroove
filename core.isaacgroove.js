@@ -2,6 +2,7 @@
  * Created by Isaac on 2/7/2015.
  */
 (function(global) {
+    'use strict';
 
     var getCount = idGen();
     var pfx = '__igv';

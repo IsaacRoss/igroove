@@ -3,6 +3,8 @@
  */
 (function(iGroove, dom){
     'use strict';
+     var storage = iGroove.storage();
+
 
     dom.addEventListener('DOMContentLoaded', function(event){
 
@@ -39,7 +41,6 @@
                 results.appendChild(frag);
             });
         }
-
     })
 
 })(this.isaacGroove, document);
