@@ -4,9 +4,13 @@
 (function(iGroove, dom){
     'use strict';
 
-
     dom.addEventListener('DOMContentLoaded', function(event){
 
+        var $body = document.querySelector('body');
+        var btn2 = Object.create(iGroove.SearchButton);
+        btn2.setup(125, 50, 'Search');
+        btn2.$elem.setAttribute('id', 'search');
+        btn2.build($body)
         var button = document.getElementById('btnSearch');
         var searchBox = document.getElementById('search');
         var saveSearch = document.getElementById('saveSearch');

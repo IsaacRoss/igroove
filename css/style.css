@@ -55,7 +55,7 @@ fieldset{
 }
 
 #btnSearch{
-    background:url('buttons.png') no-repeat;
+    background:url('../img/buttons.png') no-repeat;
     width:83px;
     height: 36px;
     text-indent: -9999px;
