@@ -3,15 +3,18 @@
  */
 (function(iGroove, dom){
     'use strict';
-     var storage = iGroove.storage();
 
 
     dom.addEventListener('DOMContentLoaded', function(event){
 
         var button = document.getElementById('btnSearch');
-        var searchBox = document.getElementsByTagName('input')[0];
+        var searchBox = document.getElementById('search');
+        var saveSearch = document.getElementById('saveSearch');
         button.onclick = function(){
             var searchTerm = searchBox.value;
+            if(saveSearch.checked){
+
+            }
             getSearchResults(searchTerm);
             searchBox.value = '';
         };
@@ -30,13 +33,23 @@
                 api_key: iGroove.config.apiKey,
                 keywords: searchTerm
             }), function(err, data){
+                if(err){
+                    alert('Unable to get listings.')
+                }
                 var frag = dom.createDocumentFragment(),
                     results = dom.getElementById('results');
                 results.innerHTML = '';
                 data.results.forEach(function(d){
-                    var div = dom.createElement('div');
-                    div.innerText = d.title;
-                    frag.appendChild(div);
+                    var listing = dom.createElement('div');
+                    var desc = dom.createElement('div');
+                    desc.className = 'description';
+                    var h2 = dom.createElement('h2');
+                    desc.innerText = d.description;
+                    listing.className = 'etsyresult';
+                    h2.innerText = iGroove.decode(d.title);
+                    listing.appendChild(h2);
+                    listing.appendChild(desc);
+                    frag.appendChild(listing);
                 });
                 results.appendChild(frag);
             });

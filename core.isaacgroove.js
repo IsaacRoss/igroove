@@ -22,6 +22,11 @@
                 }
             }
             return str.join('&');
+        },
+        decode: function(str){
+            str = str.replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'");
+            return str;
         }
     };
 
