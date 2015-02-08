@@ -80,8 +80,24 @@ fieldset{
     padding:20px;
 }
 
-#savedsearches{
+#savedwrapper{
     position:absolute;
     top:0;
     left: 20px;
+}
+
+#savedsearches{
+    list-style: none;
+}
+
+#savedsearches li a{
+    padding:10px;
+    font-weight: bold;
+}
+#savedsearches >li>button{
+    cursor:pointer;
+}
+#savedsearches li a:hover{
+    color: orangered;
+    cursor:pointer;
 }

@@ -9,18 +9,14 @@
     dom.addEventListener('DOMContentLoaded', function(){
 
         var store = iGroove.storage();
-        var x = JSON.parse(store.get('searches'));
-        var collection = x && x['isaacGroove:data'] || [];
+        var collection;
+
         var savedsearches = document.getElementById('savedsearches');
         var button = document.getElementById('btnSearch');
         var searchBox = document.getElementById('search');
         var saveSearch = document.getElementById('saveSearch');
+        loadPreviousResults();
 
-        // load any previously saved searches.
-        for(var i = 0; i< collection.length; i++){
-            var st = collection[i];
-            bookmarkSearch(st);
-        }
 
 
         button.onclick = function(){
@@ -28,9 +24,8 @@
             if(saveSearch.checked){
                 collection.push(searchTerm);
                 bookmarkSearch(searchTerm);
-
-
             }
+
             getSearchResults(searchTerm);
             searchBox.value = '';
         };
@@ -43,18 +38,47 @@
             }
         };
 
+        function loadPreviousResults(){
+            savedsearches.innerHTML = '';
+            var x = JSON.parse(store.get('searches'));
+            collection = x && x['isaacGroove:data'] || [];
+            // load any previously saved searches.
+            for(var i = 0; i< collection.length; i++){
+                var st = collection[i];
+                bookmarkSearch(st);
+            }
+
+        }
+
         function bookmarkSearch(searchterm){
             var saved = Object.create(iGroove.SearchButton);
             var li = document.createElement('li');
+            var a = dom.createElement('a');
             savedsearches.appendChild(li);
             saved.SearchClicked = function(){
                 getSearchResults(this.label);
             };
-            saved.setup(125, 50, searchterm);
+            saved.setup(125, 25, searchterm);
             store.save({
                 searches: collection
             });
             saved.build(li);
+            a.className = 'removeSearch';
+            a.innerText = 'remove item';
+            a.onclick = function(){
+              removeSearchItem(searchterm);
+            };
+            li.appendChild(a);
+
+        }
+
+        function removeSearchItem(sItem){
+            collection = collection.filter(function(x){
+                return x !== sItem;
+            });
+            store.save({searches: collection});
+            loadPreviousResults();
+
         }
 
         function getSearchResults(searchTerm){
