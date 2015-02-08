@@ -4,19 +4,31 @@
 (function(iGroove, dom){
     'use strict';
 
-    dom.addEventListener('DOMContentLoaded', function(event){
 
-        var $body = document.querySelector('body');
-        var btn2 = Object.create(iGroove.SearchButton);
-        btn2.setup(125, 50, 'Search');
-        btn2.$elem.setAttribute('id', 'search');
-        btn2.build($body)
+
+    dom.addEventListener('DOMContentLoaded', function(){
+
+        var store = iGroove.storage();
+        var x = JSON.parse(store.get('searches'));
+        var collection = x && x['isaacGroove:data'] || [];
+        var savedsearches = document.getElementById('savedsearches');
         var button = document.getElementById('btnSearch');
         var searchBox = document.getElementById('search');
         var saveSearch = document.getElementById('saveSearch');
+
+        // load any previously saved searches.
+        for(var i = 0; i< collection.length; i++){
+            var st = collection[i];
+            bookmarkSearch(st);
+        }
+
+
         button.onclick = function(){
             var searchTerm = searchBox.value;
             if(saveSearch.checked){
+                collection.push(searchTerm);
+                bookmarkSearch(searchTerm);
+
 
             }
             getSearchResults(searchTerm);
@@ -31,7 +43,24 @@
             }
         };
 
+        function bookmarkSearch(searchterm){
+            var saved = Object.create(iGroove.SearchButton);
+            var li = document.createElement('li');
+            savedsearches.appendChild(li);
+            saved.SearchClicked = function(){
+                getSearchResults(this.label);
+            };
+            saved.setup(125, 50, searchterm);
+            store.save({
+                searches: collection
+            });
+            saved.build(li);
+        }
+
         function getSearchResults(searchTerm){
+            var frag = dom.createDocumentFragment(),
+                results = dom.getElementById('results');
+            results.innerHTML = 'Loading Search Results...';
             iGroove.jsonp(iGroove.config.etsyApi + 'listings/active.js?' +
             iGroove.serialize({
                 api_key: iGroove.config.apiKey,
@@ -40,14 +69,16 @@
                 if(err){
                     alert('Unable to get listings.')
                 }
-                var frag = dom.createDocumentFragment(),
-                    results = dom.getElementById('results');
+                if(!data.results){
+                    results.innerHTML = 'No Results Found.';
+                    return;
+                }
                 results.innerHTML = '';
                 data.results.forEach(function(d){
                     var listing = dom.createElement('div');
                     var desc = dom.createElement('div');
-                    desc.className = 'description';
                     var h2 = dom.createElement('h2');
+                    desc.className = 'description';
                     desc.innerText = d.description;
                     listing.className = 'etsyresult';
                     h2.innerText = iGroove.decode(d.title);

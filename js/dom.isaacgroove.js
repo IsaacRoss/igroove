@@ -35,6 +35,7 @@
     };
 
 
+    // if overriding, must do it before build...
     SearchButton.SearchClicked = function(evt){
         console.log('button ' + this.label + 'clicked');
     };

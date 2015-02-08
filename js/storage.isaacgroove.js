@@ -21,7 +21,7 @@
 
             for(key in data){
                 if(data.hasOwnProperty(key)){
-                    val = { 'isaacGroove:data': data[key] }
+                    val = { 'isaacGroove:data': data[key] };
                     if(expires) val['isaacGroove:expires'] = expires;
 
                     store.setItem(key, JSON.stringify(val));
@@ -37,11 +37,17 @@
             }
             return publicChain;
         }
+        function get(key){
+            return store.getItem(key);
+            //todo: handle expiration...
+        }
+
 
         publicChain = {
             save: save,
-            discard: discard
-        }
+            discard: discard,
+            get:get
+        };
         return publicChain;
     }
 
