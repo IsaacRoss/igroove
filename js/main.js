@@ -4,8 +4,6 @@
 (function(iGroove, dom){
     'use strict';
 
-
-
     dom.addEventListener('DOMContentLoaded', function(){
 
         var store = iGroove.storage();
@@ -114,6 +112,6 @@
                 results.appendChild(frag);
             });
         }
-    })
+    });
 
 })(this.isaacGroove, document);
