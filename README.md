@@ -1,6 +1,6 @@
 # etsy search example
 
-### The UI could use some serious polish (I am **NOT** a designer),
+   The UI could use some serious polish (I am **NOT** a designer),
 but the desired functionality seems to work across Chrome, Firefox, and Safari.
 I have not fully tested it in IE.
 I debated adding requireJS to allow for the scripts to have dependencies,
