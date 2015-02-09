@@ -9,5 +9,7 @@ but I decided to attempt with no libraries at all. Let's hope that doesn't bite 
 
    Things I would have liked to have gotten to:
    1. add some tests
-   2. encapsulate some more of the dom logic
-   3. add some transitions
+   2. more thorough 'decoding' 
+   3. encapsulate some more of the dom logic
+   4. add some transitions
+   5. add timeouts to jsonp
