@@ -84,7 +84,7 @@
         function getSearchResults(searchTerm){
             var frag = dom.createDocumentFragment(),
                 results = dom.getElementById('results');
-            results.innerHTML = 'Loading Search Results...';
+            results.textContent = 'Loading Search Results...';
             iGroove.jsonp(iGroove.config.etsyApi + 'listings/active.js?' +
             iGroove.serialize({
                 api_key: iGroove.config.apiKey,
@@ -94,18 +94,19 @@
                     alert('Unable to get listings.')
                 }
                 if(!data.results){
-                    results.innerHTML = 'No Results Found.';
+                    results.textContent = 'No Results Found.';
                     return;
                 }
-                results.innerHTML = '';
+                results.textContent = '';
                 data.results.forEach(function(d){
+
                     var listing = dom.createElement('div');
                     var desc = dom.createElement('div');
                     var h2 = dom.createElement('h2');
                     desc.className = 'description';
-                    desc.innerText = d.description;
+                    desc.textContent = d.description;
                     listing.className = 'etsyresult';
-                    h2.innerText = iGroove.decode(d.title);
+                    h2.textContent = iGroove.decode(d.title);
                     listing.appendChild(h2);
                     listing.appendChild(desc);
                     frag.appendChild(listing);
