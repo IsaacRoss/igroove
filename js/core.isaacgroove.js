@@ -11,7 +11,7 @@
     global.isaacGroove = {
         config: {
             etsyApi: 'https://openapi.etsy.com/v2/',
-            apiKey: 'h5uibwhy1kmoug0jwgfs3oox'
+            apiKey: ''
         },
         jsonp: jsonp,
         serialize: function(obj){
